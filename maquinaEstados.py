@@ -32,7 +32,7 @@ def gerar_trafego(bitrate):
 
 # Tratadores dos estados
 def tratador_Ocioso():
-    sleep(5)
+    time.sleep(5)
 
 
 def tratador_TrafMed():
@@ -52,9 +52,20 @@ ocioso.transicoes = {ocioso: 0.6, trafMed: 0.3, trafAlt: 0.1}
 trafMed.transicoes = {ocioso: 0.2, trafMed: 0.6, trafAlt: 0.2}
 trafAlt.transicoes = {ocioso: 0.1, trafMed: 0.3, trafAlt: 0.6}
 
-# Estado inicial
-estado = "Ocioso"
+epocas = 50
 
-while True:
-    print(f"Estado atual: {estado}")
-    estado = estado.prox_estado
+# Estado inicial
+estado = ocioso
+
+# iperf servidor
+cmd = [
+    "sudo","himage",
+    "pc2","iperf",
+     "-s", "-u","-D"]
+
+subprocess.run(cmd)
+
+for _ in range(50):
+    print(f"Estado atual: {estado.nome}")
+    estado.run()
+    estado = estado.prox_estado()
