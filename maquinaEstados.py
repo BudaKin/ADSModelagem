@@ -8,6 +8,7 @@ class Estado:
         self.nome = nome
         self.run = run
         self.transicoes = transicoes
+        self.visitas = 0
 
     def prox_estado(self):
         estados = list(self.transicoes.keys())
@@ -33,6 +34,7 @@ def gerar_trafego(bitrate):
 # Tratadores dos estados
 def tratador_Ocioso():
     time.sleep(5)
+    print("19700101000000,10.0.0.21,56015,10.0.0.20,5001,1,0.0-5.0,0,0,0.000,0,-1,-0.000,0")
 
 
 def tratador_TrafMed():
@@ -52,7 +54,9 @@ ocioso.transicoes = {ocioso: 0.6, trafMed: 0.3, trafAlt: 0.1}
 trafMed.transicoes = {ocioso: 0.2, trafMed: 0.6, trafAlt: 0.2}
 trafAlt.transicoes = {ocioso: 0.1, trafMed: 0.3, trafAlt: 0.6}
 
-epocas = 50
+epocas = 500
+epoca = 5
+idx = 0
 
 # Estado inicial
 estado = ocioso
@@ -65,7 +69,10 @@ cmd = [
 
 subprocess.run(cmd)
 
-for _ in range(50):
-    print(f"Estado atual: {estado.nome}")
+for _ in range(epocas):
+    estado.visitas += 1
+    print(f"Estado atual({idx} s): {estado.nome}, Visitado {estado.visitas} vez(es)")
     estado.run()
+    time.sleep(0.3)
     estado = estado.prox_estado()
+    idx += epoca
