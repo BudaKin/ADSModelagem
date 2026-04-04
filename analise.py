@@ -58,8 +58,8 @@ try:
     print(f"Estado 2 (TrafAlt):  Teórico = {pi_teorico[2]:.4f} | Experimental = {pi_experimental[2]:.4f} ({tempo_por_estado[2]:.0f}s)")
     
     print("\n2. Vazão Média:")
-    print(f"Teórica:      {vazao_teorica_mbps:.2f} Mbps")
-    print(f"Experimental: {vazao_experimental_mbps:.2f} Mbps")
+    print(f"Teórica:      {vazao_teorica_mbps:.3f} Mbps")
+    print(f"Experimental: {vazao_experimental_mbps:.3f} Mbps")
     print("="*50)
 
 except FileNotFoundError:
